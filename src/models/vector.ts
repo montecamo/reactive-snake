@@ -1,4 +1,5 @@
 import { createStore, createApi } from 'effector';
+import { reset } from './reset';
 
 export enum Vector {
   UP,
@@ -7,7 +8,7 @@ export enum Vector {
   LEFT,
 }
 
-const vector = createStore<Vector>(Vector.RIGHT);
+const vector = createStore<Vector>(Vector.RIGHT).reset(reset);
 
 const vectorApi = createApi(vector, {
   left: () => Vector.LEFT,

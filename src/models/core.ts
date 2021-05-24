@@ -1,8 +1,9 @@
-import { sample, combine, guard } from 'effector';
+import { sample, combine, guard, forward } from 'effector';
 import { clock, increaseClock } from './clock';
 import { vector, vectorApi } from './vector';
-import { move, snake, feed } from './snake';
+import { move, snake, feed, fail } from './snake';
 import { apple, generateApple } from './apple';
+import { reset } from './reset';
 
 const SPEED = 50;
 
@@ -64,6 +65,11 @@ guard({
   clock: clock.updates,
   filter: appleEaten,
   target: generateApple,
+});
+
+forward({
+  from: fail,
+  to: reset,
 });
 
 export { start };

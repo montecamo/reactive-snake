@@ -21,6 +21,7 @@
   });
 </script>
 
+<div class="count">{$snake.length}</div>
 <div class="field">
   {#each field as row}
     <div class="row">

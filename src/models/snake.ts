@@ -1,8 +1,11 @@
 import last from 'lodash-es/last';
-import { createStore, createEvent } from 'effector';
+import uniqBy from 'lodash-es/uniqBy';
+
+import { createStore, createEvent, forward } from 'effector';
 import type { Store } from 'effector';
 import { FIELD_SIZE } from '../constants';
 import { Vector } from './vector';
+import { reset } from './reset';
 
 const enhance = <T>(fn: (store: T) => T) => (store: Store<T>) => store.map(fn);
 
@@ -54,7 +57,12 @@ const snake = createStore<Snake>(INITIAL)
   })
   .on(move, (state, vector) => {
     return state.slice(1).concat(applyVector(last(state), vector));
-  });
+  })
+  .reset(reset);
+
+const fail = snake.map(
+  (s) => uniqBy(s, (p) => '' + p.x + p.y).length !== s.length
+);
 
 const normalize = (x: number, boundary: number) =>
   ((x % boundary) + boundary) % boundary;
@@ -68,4 +76,4 @@ const normalized = snake.thru(
   )
 );
 
-export { normalized as snake, move, feed };
+export { normalized as snake, move, feed, fail };
