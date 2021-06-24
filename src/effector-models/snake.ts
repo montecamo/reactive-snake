@@ -12,7 +12,7 @@ const enhance = <T>(fn: (store: T) => T) => (store: Store<T>) => store.map(fn);
 type SnakePart = { x: number; y: number };
 type Snake = SnakePart[];
 
-const INITIAL = [
+export const INITIAL = [
   { x: 0, y: 0 },
   { x: 1, y: 0 },
   { x: 2, y: 0 },
