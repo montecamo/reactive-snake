@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Field from './components/Field.svelte';
-  import { start } from './models/core';
+  import Field from './components/RxField.svelte';
+  import { start } from './rx-models/core';
 
   onMount(start);
 </script>

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "effector": "^21.8.11",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "rxjs": "^7.1.0"
   }
 }

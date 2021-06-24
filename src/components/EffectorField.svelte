@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { snake } from '../models/snake';
-  import { apple } from '../models/apple';
+  
+  import { snake } from '../effector-models/snake';
+  import { apple } from '../effector-models/apple';
   import { FIELD_SIZE } from '../constants';
-  import { clock } from '../models/core';
-  import { speed } from '../models/speed';
-  import { vector } from '../models/vector';
+  import { clock } from '../effector-models/core';
+  import { speed } from '../effector-models/speed';
+  import { vector } from '../effector-models/vector';
 
   const rows = new Array(FIELD_SIZE).fill(0);
   const columns = new Array(FIELD_SIZE).fill(0);
