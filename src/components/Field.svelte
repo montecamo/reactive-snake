@@ -2,6 +2,9 @@
   import { snake } from '../models/snake';
   import { apple } from '../models/apple';
   import { FIELD_SIZE } from '../constants';
+  import { clock } from '../models/core';
+  import { speed } from '../models/speed';
+  import { vector } from '../models/vector';
 
   const rows = new Array(FIELD_SIZE).fill(0);
   const columns = new Array(FIELD_SIZE).fill(0);
@@ -21,7 +24,10 @@
   });
 </script>
 
-<div class="count">{$snake.length}</div>
+<div class="count">snake: {$snake.length}</div>
+<div class="count">clock: {$clock}</div>
+<div class="count">speed: {$speed}</div>
+<div class="count">vector: {$vector}</div>
 <div class="field">
   {#each field as row}
     <div class="row">
@@ -58,9 +64,9 @@
   }
 
   .snake {
-    background: lightcoral;
+    background: green;
   }
   .apple {
-    background: lightblue;
+    background: red;
   }
 </style>

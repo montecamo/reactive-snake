@@ -1,53 +1,42 @@
 import { sample, combine, guard, forward } from 'effector';
-import { clock, increaseClock } from './clock';
-import { vector, vectorApi } from './vector';
+import { vector, vectorsApi } from './vector';
 import { move, snake, feed, fail } from './snake';
 import { apple, generateApple } from './apple';
 import { reset } from './reset';
-
-const SPEED = 50;
-
-const start = () => {
-  let prev = 0;
-
-  const loop = (timestamp) => {
-    if (!prev || timestamp - prev > SPEED) {
-      prev = timestamp;
-
-      increaseClock();
-    }
-
-    window.requestAnimationFrame(loop);
-  };
-
-  window.requestAnimationFrame(loop);
-};
+import { increaseSpeed } from './speed';
+import { clock, increaseClock } from './clock';
+import { start } from './timestamp';
 
 window.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'ArrowRight':
-      vectorApi.right();
+      vectorsApi.right();
       increaseClock();
       break;
     case 'ArrowLeft':
-      vectorApi.left();
+      vectorsApi.left();
       increaseClock();
       break;
     case 'ArrowDown':
-      vectorApi.down();
+      vectorsApi.down();
       increaseClock();
       break;
     case 'ArrowUp':
-      vectorApi.up();
+      vectorsApi.up();
       increaseClock();
       break;
   }
 });
 
 sample({
-  clock,
+  clock: [clock],
   source: vector,
   target: move,
+});
+
+sample({
+  clock: [snake.map((s) => s.length)],
+  target: increaseSpeed,
 });
 
 const appleEaten = combine(apple, snake, (apple, snake) =>
@@ -55,14 +44,14 @@ const appleEaten = combine(apple, snake, (apple, snake) =>
 );
 
 guard({
-  clock: clock.updates,
+  clock: [clock],
   source: vector,
   filter: appleEaten,
   target: feed,
 });
 
 guard({
-  clock: clock.updates,
+  clock: [clock],
   filter: appleEaten,
   target: generateApple,
 });
@@ -72,4 +61,4 @@ forward({
   to: reset,
 });
 
-export { start };
+export { start, clock };
